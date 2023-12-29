@@ -1,9 +1,7 @@
-﻿// **Задача 35:** Задайте одномерный массив из 123 случайных чисел. Найдите количество элементов 
-// массива, значения которых лежат в отрезке [10,99].
-// *Пример для массива из 5, а не 123 элементов. В своём решении сделайте для 123*
-// [5, 18, 123, 6, 2] -> 1
-// [1, 2, 3, 6, 2] -> 0
-// [10, 11, 12, 13, 14] -> 5
+﻿// **Задача 37:** Найдите произведение пар чисел в одномерном массиве. Парой считаем первый и последний 
+// элемент, второй и предпоследний и т.д. Результат запишите в новом массиве.
+// [1 2 3 4 5] -> 5 8 3
+// [6 7 3 6] -> 36 21
 
 using System;
 using System.Drawing;
@@ -12,29 +10,26 @@ Clear();
 
 WriteLine("Введите длинну массива: ");
 int[] array = new int[int.Parse(ReadLine())];
-WriteLine("Введите диапозон поиска: ");
-string[] stringAr = ReadLine().Split(' ',StringSplitOptions.RemoveEmptyEntries);
-int minVal = int.Parse(stringAr[0]);
-int maxVal = int.Parse(stringAr[1]);
-GetArrayFromString(array);
+GetArray(array);
 WriteLine($"[{String.Join(",",array)}]");
-WriteLine($"Сумма элементов в диапозоне от {minVal} до {maxVal} = {SumElement(minVal,maxVal,array)}");
+WriteLine($"[{string.Join(" ",SumElement(array))}]");
 
-int SumElement(int minVal, int maxVal, int[]arr)
+int[] SumElement(int[]arr)
 {
-   int result = 0;
-   for (int i = 0; i < arr.Length; i++)
+   int[] result = new int[arr.Length % 2 == 0?arr.Length/2:arr.Length/2+1];
+   for (int i = 0; i < result.Length; i++)
    {
-      result += arr[i]>minVal && arr[i]<maxVal?1:0;
+      result[i] = arr[i] * arr[arr.Length-1-i];
    }
+   if(arr.Length%2 != 0) result[result.Length-1] = arr[arr.Length/2];
    return result; 
 }
 
-void GetArrayFromString(int[] ar)
+void GetArray(int[] ar)
 {
    for (int i = 0; i < ar.Length; i++)
    {
-      ar[i] = new Random().Next(1,1000);
+      ar[i] = new Random().Next(1,10);
    }
 }
 
