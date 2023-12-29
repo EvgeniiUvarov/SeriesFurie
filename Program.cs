@@ -6,21 +6,35 @@
 // [10, 11, 12, 13, 14] -> 5
 
 using System;
+using System.Drawing;
 using static System.Console;
 Clear();
 
-WriteLine("Введите элементы массива через пробел: ");
-int[] array = GetArrayFromString(ReadLine());
+WriteLine("Введите длинну массива: ");
+int[] array = new int[int.Parse(ReadLine())];
+WriteLine("Введите диапозон поиска: ");
+string[] stringAr = ReadLine().Split(' ',StringSplitOptions.RemoveEmptyEntries);
+int minVal = int.Parse(stringAr[0]);
+int maxVal = int.Parse(stringAr[1]);
+GetArrayFromString(array);
 WriteLine($"[{String.Join(",",array)}]");
+WriteLine($"Сумма элементов в диапозоне от {minVal} до {maxVal} = {SumElement(minVal,maxVal,array)}");
 
-int[] GetArrayFromString(string arrayStr)
+int SumElement(int minVal, int maxVal, int[]arr)
 {
-   string[] arS = arrayStr.Split(" ",StringSplitOptions.RemoveEmptyEntries);
-   int[] result = new int[arS.Length];
-   for (int i = 0; i < arS.Length; i++)
+   int result = 0;
+   for (int i = 0; i < arr.Length; i++)
    {
-      result[i] = int.Parse(arS[i]);
+      result += arr[i]>minVal && arr[i]<maxVal?1:0;
    }
-   return result;
+   return result; 
+}
+
+void GetArrayFromString(int[] ar)
+{
+   for (int i = 0; i < ar.Length; i++)
+   {
+      ar[i] = new Random().Next(1,1000);
+   }
 }
 
