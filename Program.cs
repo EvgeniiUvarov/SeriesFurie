@@ -1,7 +1,6 @@
-﻿// **Задача 37:** Найдите произведение пар чисел в одномерном массиве. Парой считаем первый и последний 
-// элемент, второй и предпоследний и т.д. Результат запишите в новом массиве.
-// [1 2 3 4 5] -> 5 8 3
-// [6 7 3 6] -> 36 21
+﻿// Задача 34: Задайте массив заполненный случайными положительными трёхзначными числами. Напишите программу, 
+// которая покажет количество чётных чисел в массиве.
+// [345, 897, 568, 234] -> 2
 
 using System;
 using System.Drawing;
@@ -9,27 +8,27 @@ using static System.Console;
 Clear();
 
 WriteLine("Введите длинну массива: ");
-int[] array = new int[int.Parse(ReadLine())];
-GetArray(array);
-WriteLine($"[{String.Join(",",array)}]");
-WriteLine($"[{string.Join(" ",SumElement(array))}]");
+int sizar = int.Parse(ReadLine());
+int[] randArray = GetRandomArray(sizar);
+WriteLine($"{String.Join(' ',randArray)} положительных элементов в массиве: {FyndElement(randArray)}");
 
-int[] SumElement(int[]arr)
+int FyndElement(int[] array)
 {
-   int[] result = new int[arr.Length % 2 == 0?arr.Length/2:arr.Length/2+1];
-   for (int i = 0; i < result.Length; i++)
+   int result = 0;
+   for (int i = 0; i < array.Length; i++)
    {
-      result[i] = arr[i] * arr[arr.Length-1-i];
+      result += array[i] %2== 0?1:0;
    }
-   if(arr.Length%2 != 0) result[result.Length-1] = arr[arr.Length/2];
-   return result; 
+   return result;
 }
 
-void GetArray(int[] ar)
+int[] GetRandomArray(int size)
 {
-   for (int i = 0; i < ar.Length; i++)
+   int[] array = new int[size];
+   for (int i = 0; i < size; i++)
    {
-      ar[i] = new Random().Next(1,10);
+      array[i] = new Random().Next(100,1000);
    }
+   return array;
 }
 
