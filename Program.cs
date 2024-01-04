@@ -1,43 +1,36 @@
-﻿// Задача 38: Задайте массив вещественных чисел. 
-// Найдите разницу между максимальным и минимальным элементов массива.
-
+﻿// Задача 39: Напишите программу, которая перевернёт одномерный массив (последний элемент будет на первом 
+// месте, а первый - на последнем и т.д.)
+// [1 2 3 4 5] -> [5 4 3 2 1]
+// [6 7 3 6] -> [6 3 7 6]
 using System;
-using System.Drawing;
 using static System.Console;
 Clear();
 
-WriteLine("Введите длинну массива: ");
-int sizar = int.Parse(ReadLine());
-double[] randArray = GetRandomArray(sizar);
-WriteLine($"{String.Join(' ',randArray)} разница между мксимальным и минемальным: {FestElement(randArray) - SekendElement(randArray)}");
+WriteLine("Введите элементы массива через пробел: ");
+int[] array = GetArrayFromString(ReadLine());
+WriteLine($"[{String.Join(',',array)}]");
+ReversArray(array);
+WriteLine($"[{String.Join(' ',array)}]");
 
-double FestElement(double[] array)
+void ReversArray(int[] arr)
 {
-   double result = array[0];
-   for (int i = 0; i < array.Length; i++)
+   int qurent = 0;
+   for (int i = 0; i < arr.Length/2; i++)
    {
-      result = array[i] > result?array[i]:result;
+      qurent = arr[arr.Length-1-i];
+      arr[arr.Length-1-i] = arr[i];
+      arr[i] = qurent;
    }
-   return result;
-}
-double SekendElement(double[] array)
-{
-   double result = array[0];
-   for (int i = 0; i < array.Length; i++)
-   {
-      result = array[i] < result?array[i]:result;
-   }
-   return result;
 }
 
-
-double[] GetRandomArray(int size)
+int[] GetArrayFromString(string strArray)
 {
-   double[] array = new double[size];
-   for (int i = 0; i < size; i++)
+   string[] arS = strArray.Split(' ',StringSplitOptions.RemoveEmptyEntries);
+   int[] result = new int[arS.Length];
+   for (int i = 0; i < arS.Length; i++)
    {
-      array[i] = Math.Round(new Random().NextDouble(),2);
+      result[i] = int.Parse(arS[i]);
    }
-   return array;
+   return result;
 }
 
