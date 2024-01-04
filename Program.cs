@@ -1,36 +1,17 @@
-﻿// Задача 39: Напишите программу, которая перевернёт одномерный массив (последний элемент будет на первом 
-// месте, а первый - на последнем и т.д.)
-// [1 2 3 4 5] -> [5 4 3 2 1]
-// [6 7 3 6] -> [6 3 7 6]
+﻿// Задача 40: Напишите программу, которая принимает на вход три числа и проверяет, может ли существовать 
+// треугольник с сторонами такой длины.
 using System;
 using static System.Console;
 Clear();
 
-WriteLine("Введите элементы массива через пробел: ");
-int[] array = GetArrayFromString(ReadLine());
-WriteLine($"[{String.Join(',',array)}]");
-ReversArray(array);
-WriteLine($"[{String.Join(' ',array)}]");
+WriteLine("Введите три числа через пробел: ");
+string[] strAr = ReadLine().Split(' ',StringSplitOptions.RemoveEmptyEntries);
+int firstnum = int.Parse(strAr[0]);
+int secondnum = int.Parse(strAr[1]);
+int thirdnum = int.Parse(strAr[2]);
+WriteLine(Triangle(firstnum,secondnum,thirdnum)?"Треугольник":"Не Треугольник");
 
-void ReversArray(int[] arr)
+bool Triangle(int firstnum, int secondnum, int thirdnum)
 {
-   int qurent = 0;
-   for (int i = 0; i < arr.Length/2; i++)
-   {
-      qurent = arr[arr.Length-1-i];
-      arr[arr.Length-1-i] = arr[i];
-      arr[i] = qurent;
-   }
+   return firstnum + secondnum > thirdnum && firstnum + thirdnum > secondnum && thirdnum + secondnum > firstnum?true:false;
 }
-
-int[] GetArrayFromString(string strArray)
-{
-   string[] arS = strArray.Split(' ',StringSplitOptions.RemoveEmptyEntries);
-   int[] result = new int[arS.Length];
-   for (int i = 0; i < arS.Length; i++)
-   {
-      result[i] = int.Parse(arS[i]);
-   }
-   return result;
-}
-
