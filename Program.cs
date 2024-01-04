@@ -1,6 +1,5 @@
-﻿// Задача 34: Задайте массив заполненный случайными положительными трёхзначными числами. Напишите программу, 
-// которая покажет количество чётных чисел в массиве.
-// [345, 897, 568, 234] -> 2
+﻿// Задача 38: Задайте массив вещественных чисел. 
+// Найдите разницу между максимальным и минимальным элементов массива.
 
 using System;
 using System.Drawing;
@@ -9,25 +8,35 @@ Clear();
 
 WriteLine("Введите длинну массива: ");
 int sizar = int.Parse(ReadLine());
-int[] randArray = GetRandomArray(sizar);
-WriteLine($"{String.Join(' ',randArray)} положительных элементов в массиве: {FyndElement(randArray)}");
+double[] randArray = GetRandomArray(sizar);
+WriteLine($"{String.Join(' ',randArray)} разница между мксимальным и минемальным: {FestElement(randArray) - SekendElement(randArray)}");
 
-int FyndElement(int[] array)
+double FestElement(double[] array)
 {
-   int result = 0;
+   double result = array[0];
    for (int i = 0; i < array.Length; i++)
    {
-      result += array[i] %2== 0?1:0;
+      result = array[i] > result?array[i]:result;
+   }
+   return result;
+}
+double SekendElement(double[] array)
+{
+   double result = array[0];
+   for (int i = 0; i < array.Length; i++)
+   {
+      result = array[i] < result?array[i]:result;
    }
    return result;
 }
 
-int[] GetRandomArray(int size)
+
+double[] GetRandomArray(int size)
 {
-   int[] array = new int[size];
+   double[] array = new double[size];
    for (int i = 0; i < size; i++)
    {
-      array[i] = new Random().Next(100,1000);
+      array[i] = Math.Round(new Random().NextDouble(),2);
    }
    return array;
 }
