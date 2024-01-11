@@ -1,17 +1,36 @@
-﻿// Задача 40: Напишите программу, которая принимает на вход три числа и проверяет, может ли существовать 
-// треугольник с сторонами такой длины.
+﻿// Задача 42:** Напишите программу, которая будет преобразовывать число в выбранную степень счисления.
+// 45 -> 2  = 101101
+// 71 -> 8  = 39
+// 2 ->  2  = 10
+// 45 -> 16 = 91
 using System;
 using static System.Console;
 Clear();
 
-WriteLine("Введите три числа через пробел: ");
-string[] strAr = ReadLine().Split(' ',StringSplitOptions.RemoveEmptyEntries);
-int firstnum = int.Parse(strAr[0]);
-int secondnum = int.Parse(strAr[1]);
-int thirdnum = int.Parse(strAr[2]);
-WriteLine(Triangle(firstnum,secondnum,thirdnum)?"Треугольник":"Не Треугольник");
+//WriteLine(Convert.ToString(int.Parse(ReadLine()),2));
 
-bool Triangle(int firstnum, int secondnum, int thirdnum)
+Write("Введите число: ");
+int number = int.Parse(ReadLine());
+Write("Введите в какую систему счисления: ");
+int degree = int.Parse(ReadLine());
+
+ReverString(DegreeNum(number,degree));
+
+string DegreeNum(int num, int deg)
 {
-   return firstnum + secondnum > thirdnum && firstnum + thirdnum > secondnum && thirdnum + secondnum > firstnum?true:false;
+   string result = string.Empty;
+   while(num > 0)
+   {  
+      result += $"{num % deg}";
+      num /= deg;
+   }
+   return result;
+}
+
+void ReverString(string str)
+{
+   for (int i = str.Length; i > 0; i--)
+   {
+      Write($"{str[i-1]}");
+   }
 }
