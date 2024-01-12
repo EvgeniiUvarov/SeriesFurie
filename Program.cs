@@ -1,36 +1,41 @@
-﻿// Задача 42:** Напишите программу, которая будет преобразовывать число в выбранную степень счисления.
-// 45 -> 2  = 101101
-// 71 -> 8  = 39
-// 2 ->  2  = 10
-// 45 -> 16 = 91
-using System;
+﻿// Задача 44:** Не используя рекурсию, выведите первые N чисел Фибоначчи. Первые два числа Фибоначчи: 0 и 1.
+// Если N = 5 -> 0 1 1 2 3
+// Если N = 3 -> 0 1 1
+// Если N = 7 -> 0 1 1 2 3 5 8
+
 using static System.Console;
 Clear();
 
-//WriteLine(Convert.ToString(int.Parse(ReadLine()),2));
-
 Write("Введите число: ");
-int number = int.Parse(ReadLine());
-Write("Введите в какую систему счисления: ");
-int degree = int.Parse(ReadLine());
+int numFeb = int.Parse(ReadLine());
+NumberFebonachi(numFeb);
 
-ReverString(DegreeNum(number,degree));
+WriteLine();
+WriteLine($"{String.Join(' ', FebonachArray(numFeb))}");
 
-string DegreeNum(int num, int deg)
+void NumberFebonachi(int num)
 {
-   string result = string.Empty;
-   while(num > 0)
-   {  
-      result += $"{num % deg}";
-      num /= deg;
+   int first = 0;
+   int second = 1;
+   Write($"{first} ");
+   Write($"{second} ");
+   for (int i = 2; i < num; i++)
+   {
+      int result = first + second;
+      Write($"{result} ");
+      first = second;
+      second = result;
    }
-   return result;
 }
 
-void ReverString(string str)
+int[] FebonachArray(int num)
 {
-   for (int i = str.Length; i > 0; i--)
+   int[] result = new int[num];
+   for (int i = 2; i < num; i++)
    {
-      Write($"{str[i-1]}");
+      result[0] = 0;
+      result[1] = 1;
+      result[i] = result[i-1] + result[i-2];
    }
+   return result;
 }
