@@ -1,41 +1,21 @@
-﻿// Задача 44:** Не используя рекурсию, выведите первые N чисел Фибоначчи. Первые два числа Фибоначчи: 0 и 1.
-// Если N = 5 -> 0 1 1 2 3
-// Если N = 3 -> 0 1 1
-// Если N = 7 -> 0 1 1 2 3 5 8
+﻿// Задача 41: Пользователь вводит с клавиатуры M чисел. Посчитайте, сколько чисел больше 0 ввёл пользователь.
+// 0, 7, 8, -2, -2 -> 2
+// 1, -7, 567, 89, 223-> 3
 
 using static System.Console;
 Clear();
 
-Write("Введите число: ");
-int numFeb = int.Parse(ReadLine());
-NumberFebonachi(numFeb);
+Write("Введите числа через пробел: ");
+string[] strArr = ReadLine().Split(' ',StringSplitOptions.RemoveEmptyEntries);
 
-WriteLine();
-WriteLine($"{String.Join(' ', FebonachArray(numFeb))}");
+WriteLine($"{SumArray(strArr)}");
 
-void NumberFebonachi(int num)
+int SumArray(string[] stringAr)
 {
-   int first = 0;
-   int second = 1;
-   Write($"{first} ");
-   Write($"{second} ");
-   for (int i = 2; i < num; i++)
+   int result = 0;
+   for (int i = 0; i < stringAr.Length; i++)
    {
-      int result = first + second;
-      Write($"{result} ");
-      first = second;
-      second = result;
-   }
-}
-
-int[] FebonachArray(int num)
-{
-   int[] result = new int[num];
-   for (int i = 2; i < num; i++)
-   {
-      result[0] = 0;
-      result[1] = 1;
-      result[i] = result[i-1] + result[i-2];
+      result += int.Parse(stringAr[i]) > 0? 1:0;
    }
    return result;
 }
