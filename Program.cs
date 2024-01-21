@@ -26,6 +26,7 @@ void ChotIndexArray(int[,] array)
       {
          array[i,j] = i %2 == 0 && j %2 == 0?array[i,j] *= array[i,j]:array[i,j];
          //if( i %2 == 0 & j %2 == 0) array[i,j] *= array[i,j];
+         //if( i %2 == 0 & j %2 == 0) array[i,j] = Convert.ToInt32(Math.Pow(array[i,j],2));
       }
    }
 }
