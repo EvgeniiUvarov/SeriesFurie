@@ -1,17 +1,56 @@
-﻿// Задача 43: Напишите программу, которая найдёт точку пересечения двух прямых, заданных уравнениями y = k1 * x + b1, y = k2 * x + b2;
-// значения b1, k1, b2 и k2 задаются пользователем.
-// b1 = 2, k1 = 5, b2 = 4, k2 = 9 -> (-0,5; 5,5)
+﻿// Задача 49:** Задайте двумерный массив. Найдите элементы, у которых оба индекса чётные, и замените эти элементы на их квадраты.
+// Например, изначально массив выглядел вот так:
+// 1 4 7 2
+// 5 9 2 3
+// 8 4 2 4
 
 using static System.Console;
 Clear();
 
-Write("Введите числа через пробел K1 B1 K2 B2: ");
-string[] stArr = ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-double k1 = int.Parse(stArr[0]);
-double b1 = int.Parse(stArr[1]);
-double k2 = int.Parse(stArr[2]);
-double b2 = int.Parse(stArr[3]);
+Write("Введите через пробел размер двумерного массива: ");
+string[] strAr = ReadLine().Split(' ',StringSplitOptions.RemoveEmptyEntries);
+int rows = int.Parse(strAr[0]);
+int colum = int.Parse(strAr[1]);
 
-double x = (b2 - b1) / (k1 - k2);
-double y = k1 * x + b1;
-WriteLine($"Точка пересечения двух прямых: ({x} {y})");
+int[,] arr = GetArray(rows,colum);
+PrintArray(arr);
+ChotIndexArray(arr);
+WriteLine();
+PrintArray(arr);
+
+void ChotIndexArray(int[,] array)
+{
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+      for (int j = 0; j < array.GetLength(1); j++)
+      {
+         array[i,j] = i %2 == 0 && j %2 == 0?array[i,j] *= array[i,j]:array[i,j];
+         //if( i %2 == 0 & j %2 == 0) array[i,j] *= array[i,j];
+      }
+   }
+}
+
+int[,] GetArray(int row, int col)
+{
+   int[,] result = new int[row,col];
+   for (int i = 0; i < result.GetLength(0); i++)
+   {
+      for (int j = 0; j < result.GetLength(1); j++)
+      {
+         result[i,j] = new Random().Next(1,6);
+      }
+   }
+   return result;
+}
+
+void PrintArray(int[,] array)
+{
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+      for (int j = 0; j < array.GetLength(1); j++)
+      {
+         Write($"{array[i,j]} ");
+      }
+      WriteLine();
+   }
+}
