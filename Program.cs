@@ -1,10 +1,9 @@
-﻿// Задача 50. Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение 
-// этого элемента или же указание, что такого элемента нет.
+﻿// Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
 // Например, задан массив:
 // 1 4 7 2
 // 5 9 2 3
 // 8 4 2 4
-// 17 -> такого числа в массиве нет
+// Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
 
 using System.Diagnostics;
 using static System.Console;
@@ -17,27 +16,23 @@ int colum = int.Parse(strAr[1]);
 int[,] array = GetArray(rows, colum);
 PrintArray(array);
 
-WriteLine("Введите позиции элемента: ");
-string[] positionEll = ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-int rowPos = int.Parse(positionEll[0]);
-int colPos = int.Parse(positionEll[1]);
-//WriteLine($"{SerchPositionElement(array,rowPos,colPos)}");
+WriteLine($"{String.Join(' ',SerchPositionElement(array))}");
 
-if(array.GetLength(0) < rowPos && array.GetLength(1) < colPos) WriteLine("Такого элемента нет");
-else WriteLine($"Элемент: {array[rowPos,colPos]}");
+double[] SerchPositionElement(int[,] array)
+{
+   double[] result = new double[array.GetLength(1)];
 
-// string SerchPositionElement(int[,] array, int row, int col)
-// {
-//    string result = "Такого элемента нет!";
-//    for (int i = 0; i < array.GetLength(0); i++)
-//    {
-//       for (int j = 0; j < array.GetLength(1); j++)
-//       {
-//          if(i == row && j == col) result = $"Элемент найден {array[i,j]}";
-//       }
-//    }
-//    return result;
-// }
+   for (int i = 0; i < array.GetLength(1); i++)
+   {
+      double sum = 0;
+      for (int j = 0; j < array.GetLength(0); j++)
+      {
+         sum += array[j,i];
+      }
+      result[i] = sum/array.GetLength(0);
+   }
+   return result;
+}
 
 int[,] GetArray(int row, int col)
 {
