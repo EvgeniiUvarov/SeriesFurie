@@ -1,4 +1,5 @@
-﻿//Задача 53: Задайте двумерный массив. Напишите программу, которая поменяет местами первую и последнюю строку массива.
+﻿// Задача 55: Задайте двумерный массив. Напишите программу, которая заменяет строки на столбцы. 
+// В случае, если это невозможно, программа должна вывести сообщение для пользователя.
 
 using System.Diagnostics;
 using static System.Console;
@@ -8,33 +9,29 @@ Write("Введите через пробел размер двумерного 
 string[] strAr = ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 int rows = int.Parse(strAr[0]);
 int colum = int.Parse(strAr[1]);
-int[,] array = GetArray(rows,colum);
-PrintArray(array);
-ChenchRowCol(array);
-WriteLine();
-PrintArray(array);
-WriteLine();
-ChenchColRow(array);
-PrintArray(array);
+int[,] array = GetArray(rows, colum);
 
-void ChenchRowCol(int[,] array)
+if (rows == colum)
 {
-   for (int i = 0; i < array.GetLength(1); i++)
-   {
-         int res = array[array.GetLength(0)-1,i];
-         array[array.GetLength(0)-1,i] = array[0,i];
-         array[0,i] = res;
-   }
+   PrintArray(array);
+   ChenchRowsColumns(array);
+   WriteLine();
+   PrintArray(array);
 }
+else WriteLine("Not possible");
 
-void ChenchColRow(int[,] array)
+void ChenchRowsColumns(int[,] array)
 {
    for (int i = 0; i < array.GetLength(0); i++)
    {
-      int res = array[i,array.GetLength(1)-1];
-      array[i,array.GetLength(1)-1] = array[i,0];
-      array[i,0] = res;
+      for (int j = i; j < array.GetLength(1); j++)
+      {
+         int res = array[i, j];
+         array[i, j] = array[j, i];
+         array[j, i] = res;
+      }
    }
+
 }
 
 int[,] GetArray(int row, int col)
