@@ -1,12 +1,11 @@
-﻿// Задача 54. Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
+﻿// Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
 // Исходный массив:
 // 1 4 7 2
 // 5 9 2 3
 // 8 4 2 4
+// 5 2 6 7
 // Результат:
-// 7 4 2 1
-// 9 5 3 2
-// 8 4 4 2
+// 1-строка
 
 using static System.Console;
 Clear();
@@ -18,27 +17,27 @@ int colum = int.Parse(strAr[1]);
 
 int[,] array = GetArray(rows, colum);
 PrintArray(array);
-WriteLine();
-SerchArrayElement(array);
-PrintArray(array);
+SerchMinSumLineArray(array);
 
-void SerchArrayElement(int[,] array)
+void SerchMinSumLineArray(int[,] array)
 {
+   int lineIndex = 1;
+   int curentSum = 0;
    for (int i = 0; i < array.GetLength(0); i++)
    {
+      int sum = 0;
       for (int j = 0; j < array.GetLength(1); j++)
       {
-         for (int z = 0; z < array.GetLength(1) - 1; z++)
-         {
-            if (array[i, z] < array[i, z + 1])
-            {
-               int curent = array[i, z];
-               array[i, z] = array[i, z + 1];
-               array[i, z + 1] = curent;
-            }
-         }
+         sum += array[i, j];
+      }
+      if(i == 0) curentSum = sum; 
+      if (curentSum > sum)
+      {
+         curentSum = sum;
+         lineIndex = i+1;
       }
    }
+   WriteLine($"В {lineIndex} строке, сумма элементов {curentSum}");
 }
 
 int[,] GetArray(int row, int col)
