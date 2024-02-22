@@ -1,14 +1,12 @@
-﻿// Задача 57: Составить частотный словарь элементов двумерного массива. Частотный словарь содержит информацию о том, 
-// сколько раз встречается элемент входных данных.
-// Если набор данных — таблица:
-// 1, 2, 3
-// 4, 6, 1
-// 2, 1, 6
-// 1 встречается 3 раза
-// 2 встречается 2 раз
-// 3 встречается 1 раз
-// 4 встречается 1 раз
-// 6 встречается 2 раза
+﻿// Задача 54. Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
+// Исходный массив:
+// 1 4 7 2
+// 5 9 2 3
+// 8 4 2 4
+// Результат:
+// 7 4 2 1
+// 9 5 3 2
+// 8 4 4 2
 
 using static System.Console;
 Clear();
@@ -21,49 +19,26 @@ int colum = int.Parse(strAr[1]);
 int[,] array = GetArray(rows, colum);
 PrintArray(array);
 WriteLine();
+SerchArrayElement(array);
+PrintArray(array);
 
-for (int i = MinElement(array); i < MaxElement(array)+1; i++)
+void SerchArrayElement(int[,] array)
 {
-   if(SerchSumElement(array,i) != 0) WriteLine($"{i} Встречается {SerchSumElement(array,i)} раз!");
-}
-
-int SerchSumElement(int[,] array, int num)
-{
-   int sum = 0;
    for (int i = 0; i < array.GetLength(0); i++)
    {
       for (int j = 0; j < array.GetLength(1); j++)
       {
-         if (num == array[i,j]) sum++; 
+         for (int z = 0; z < array.GetLength(1) - 1; z++)
+         {
+            if (array[i, z] < array[i, z + 1])
+            {
+               int curent = array[i, z];
+               array[i, z] = array[i, z + 1];
+               array[i, z + 1] = curent;
+            }
+         }
       }
    }
-   return sum;
-}
-
-int MinElement(int[,] array)
-{
-   int result = array[0,0];
-   for (int i = 0; i < array.GetLength(0); i++)
-   {
-      for (int j = 1; j < array.GetLength(1); j++)
-      {
-         if (array[i,j] < result) result = array[i,j];
-      }
-   }
-   return result;
-}
-
-int MaxElement(int[,] array)
-{
-   int result = array[0,0];
-   for (int i = 0; i < array.GetLength(0); i++)
-   {
-      for (int j = 1; j < array.GetLength(1); j++)
-      {
-         if (array[i,j] > result) result = array[i,j];
-      }
-   }
-   return result;
 }
 
 int[,] GetArray(int row, int col)
