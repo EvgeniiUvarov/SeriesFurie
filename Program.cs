@@ -1,11 +1,16 @@
-﻿// Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
-// Исходный массив:
-// 1 4 7 2
-// 5 9 2 3
-// 8 4 2 4
-// 5 2 6 7
-// Результат:
-// 1-строка
+﻿// Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+// Массив A:
+// 6 0 2
+// 0 4 8
+// 0 7 9
+// Массив В:
+// 0 0 3
+// 5 0 4
+// 8 2 0
+// Результат
+// 16 4 18
+// 84 16 16
+// 107 18 28
 
 using static System.Console;
 Clear();
@@ -15,29 +20,26 @@ string[] strAr = ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 int rows = int.Parse(strAr[0]);
 int colum = int.Parse(strAr[1]);
 
-int[,] array = GetArray(rows, colum);
-PrintArray(array);
-SerchMinSumLineArray(array);
+int[,] arrayA = GetArray(rows, colum);
+int[,] arrayB = GetArray(rows, colum);
+PrintArray(arrayA);
+WriteLine();
+PrintArray(arrayB);
+WriteLine();
+int[,] resultArray = SumFestEndSecondMatrix(arrayA,arrayB);
+PrintArray(resultArray);
 
-void SerchMinSumLineArray(int[,] array)
+int[,] SumFestEndSecondMatrix(int[,] arrA, int[,] arrB)
 {
-   int lineIndex = 1;
-   int curentSum = 0;
-   for (int i = 0; i < array.GetLength(0); i++)
+   int[,] result = new int[arrA.GetLength(0),arrA.GetLength(1)];
+   for (int i = 0; i < arrA.GetLength(0); i++)
    {
-      int sum = 0;
-      for (int j = 0; j < array.GetLength(1); j++)
+      for (int j = 0; j < arrA.GetLength(1); j++)
       {
-         sum += array[i, j];
-      }
-      if(i == 0) curentSum = sum; 
-      if (curentSum > sum)
-      {
-         curentSum = sum;
-         lineIndex = i+1;
+         result[i,j] = arrA[i,j] * arrB[i,j];
       }
    }
-   WriteLine($"В {lineIndex} строке, сумма элементов {curentSum}");
+   return result;
 }
 
 int[,] GetArray(int row, int col)
