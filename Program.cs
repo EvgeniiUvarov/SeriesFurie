@@ -1,68 +1,66 @@
-﻿// Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
-// Массив A:
-// 6 0 2
-// 0 4 8
-// 0 7 9
-// Массив В:
-// 0 0 3
-// 5 0 4
-// 8 2 0
-// Результат
-// 16 4 18
-// 84 16 16
-// 107 18 28
+﻿// Задача 60. Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно 
+// выводить массив, добавляя индексы каждого элемента.
+// массив размером 2 x 2 x 2
+// 12(0,0,0) 22(0,0,1)
+// 45(0,1,0) 53(0,1,1)
+// 32(1,0,0) 41(1,0,1)
+// 66(1,1,0) 88(1,1,1)
 
 using static System.Console;
 Clear();
 
-Write("Введите через пробел размер двумерного массива: ");
+Write("Введите через пробел размер трёхмерного массива: ");
 string[] strAr = ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 int rows = int.Parse(strAr[0]);
 int colum = int.Parse(strAr[1]);
+int lin = int.Parse(strAr[2]);
 
-int[,] arrayA = GetArray(rows, colum);
-int[,] arrayB = GetArray(rows, colum);
-PrintArray(arrayA);
-WriteLine();
-PrintArray(arrayB);
-WriteLine();
-int[,] resultArray = SumFestEndSecondMatrix(arrayA,arrayB);
-PrintArray(resultArray);
+int[,,] array =  new int[rows, colum, lin];
+GetArray(array);
+PrintArray(array);
 
-int[,] SumFestEndSecondMatrix(int[,] arrA, int[,] arrB)
-{
-   int[,] result = new int[arrA.GetLength(0),arrA.GetLength(1)];
-   for (int i = 0; i < arrA.GetLength(0); i++)
-   {
-      for (int j = 0; j < arrA.GetLength(1); j++)
-      {
-         result[i,j] = arrA[i,j] * arrB[i,j];
-      }
-   }
-   return result;
-}
 
-int[,] GetArray(int row, int col)
-{
-   int[,] result = new int[row, col];
-   for (int i = 0; i < result.GetLength(0); i++)
-   {
-      for (int j = 0; j < result.GetLength(1); j++)
-      {
-         result[i, j] = new Random().Next(1, 10);
-      }
-   }
-   return result;
-}
-
-void PrintArray(int[,] array)
+void GetArray(int[,,] array)
 {
    for (int i = 0; i < array.GetLength(0); i++)
    {
       for (int j = 0; j < array.GetLength(1); j++)
       {
-         Write($"{array[i, j]} ");
+         for (int z = 0; z < array.GetLength(2); z++)
+         {
+            array[i,j,z] = PositivNum(array);
+         }
       }
-      WriteLine();
+   }
+}
+
+int PositivNum(int [,,] array)
+{
+   int result = new Random().Next(0,9);
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+      for (int j = 0; j < array.GetLength(1); j++)
+      {
+         for (int z = 0; z < array.GetLength(2); z++)
+         {
+            result = result == array[i,j,z]? PositivNum(array): result;
+         }
+      }
+   }
+   return result;
+}
+
+void PrintArray(int[,,] array)
+{
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+      for (int j = 0; j < array.GetLength(1); j++)
+      {
+         for (int z = 0; z < array.GetLength(2); z++)
+         {
+            Write($"{array[i,j,z]}({i},{j},{z}) ");
+         }
+         WriteLine();
+      }
    }
 }
