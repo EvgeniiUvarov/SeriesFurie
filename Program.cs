@@ -1,66 +1,113 @@
-﻿// Задача 60. Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно 
-// выводить массив, добавляя индексы каждого элемента.
-// массив размером 2 x 2 x 2
-// 12(0,0,0) 22(0,0,1)
-// 45(0,1,0) 53(0,1,1)
-// 32(1,0,0) 41(1,0,1)
-// 66(1,1,0) 88(1,1,1)
+﻿// Задача 62. Заполните спирально массив 4 на 4
+// 1 2 3 4
+// 12 13 14 5
+// 11 16 15 6
+// 10 9 8 7
 
 using static System.Console;
 Clear();
 
-Write("Введите через пробел размер трёхмерного массива: ");
+Write("Введите через пробел размер двумерного массива: ");
 string[] strAr = ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 int rows = int.Parse(strAr[0]);
 int colum = int.Parse(strAr[1]);
-int lin = int.Parse(strAr[2]);
 
-int[,,] array =  new int[rows, colum, lin];
+int[,] array = new int[rows, colum];
+
 GetArray(array);
 PrintArray(array);
 
-
-void GetArray(int[,,] array)
+void GetArray(int[,] array)
 {
-   for (int i = 0; i < array.GetLength(0); i++)
+   int linEnd = array.GetLength(0) - 1;
+   int columEnd = array.GetLength(1) - 1;
+   int lineStart = 0;
+   int columStart = 0;
+   bool top = true;
+   bool left = true;
+   int i = 0;
+   int j = 0;
+   int count = 0;
+   while (count < array.GetLength(0) * array.GetLength(1))
    {
-      for (int j = 0; j < array.GetLength(1); j++)
+      count++;
+      array[i, j] = count;
+      if (left && top)
       {
-         for (int z = 0; z < array.GetLength(2); z++)
+         if (j == columEnd)
          {
-            array[i,j,z] = PositivNum(array);
+            lineStart++;
+            top = true;
+            left = false;
+            i++;
+            continue;
+         }
+         else
+         {
+            j++;
+            continue;
+         }
+      }
+      if (!left && top)
+      {
+         if (i == linEnd)
+         {
+            linEnd--;
+            top = false;
+            left = false;
+            j--;
+            continue;
+         }
+         else
+         {
+            i++;
+            continue;
+         }
+      }
+      if (!left && !top)
+      {
+         if (j == columStart)
+         {
+            columStart++;
+            top = false;
+            left = true;
+            i--;
+            continue;
+         }
+         else
+         {
+            j--;
+            continue;
+         }
+      }
+      if (left && !top)
+      {
+         if (i == lineStart)
+         {
+            columEnd--;
+            top = true;
+            left = true;
+            j++;
+            continue;
+         }
+         else
+         {
+            i--;
+            continue;
          }
       }
    }
 }
 
-int PositivNum(int [,,] array)
-{
-   int result = new Random().Next(0,9);
-   for (int i = 0; i < array.GetLength(0); i++)
-   {
-      for (int j = 0; j < array.GetLength(1); j++)
-      {
-         for (int z = 0; z < array.GetLength(2); z++)
-         {
-            result = result == array[i,j,z]? PositivNum(array): result;
-         }
-      }
-   }
-   return result;
-}
-
-void PrintArray(int[,,] array)
+void PrintArray(int[,] array)
 {
    for (int i = 0; i < array.GetLength(0); i++)
    {
       for (int j = 0; j < array.GetLength(1); j++)
       {
-         for (int z = 0; z < array.GetLength(2); z++)
-         {
-            Write($"{array[i,j,z]}({i},{j},{z}) ");
-         }
-         WriteLine();
+         string stR = array[i,j] < 10? " "+array[i,j] :array[i,j].ToString();
+         Write($"{stR} ");
       }
+      WriteLine();
    }
 }
