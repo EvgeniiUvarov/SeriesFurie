@@ -1,113 +1,20 @@
-﻿// Задача 62. Заполните спирально массив 4 на 4
-// 1 2 3 4
-// 12 13 14 5
-// 11 16 15 6
-// 10 9 8 7
-
+﻿// Джеку очень нравится его число пять: фокус здесь в том, что вам нужно умножить каждое число на 5, возведенное в ранг 
+// количества цифр каждого числа, так, например:
+//   3 -->    15  (  3 * 5¹)
+//  10 -->   250  ( 10 * 5²)
+// 200 --> 25000  (200 * 5³)
+//   0 -->     0  (  0 * 5¹)
+//  -3 -->   -15  ( -3 * 5¹)
 using static System.Console;
 Clear();
 
-Write("Введите через пробел размер двумерного массива: ");
-string[] strAr = ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-int rows = int.Parse(strAr[0]);
-int colum = int.Parse(strAr[1]);
+WriteLine("Введите число: ");
+int num = int.Parse(ReadLine());
+WriteLine($"{Multiply(num)}");
 
-int[,] array = new int[rows, colum];
 
-GetArray(array);
-PrintArray(array);
-
-void GetArray(int[,] array)
+int Multiply(int number)
 {
-   int linEnd = array.GetLength(0) - 1;
-   int columEnd = array.GetLength(1) - 1;
-   int lineStart = 0;
-   int columStart = 0;
-   bool top = true;
-   bool left = true;
-   int i = 0;
-   int j = 0;
-   int count = 0;
-   while (count < array.GetLength(0) * array.GetLength(1))
-   {
-      count++;
-      array[i, j] = count;
-      if (left && top)
-      {
-         if (j == columEnd)
-         {
-            lineStart++;
-            top = true;
-            left = false;
-            i++;
-            continue;
-         }
-         else
-         {
-            j++;
-            continue;
-         }
-      }
-      if (!left && top)
-      {
-         if (i == linEnd)
-         {
-            linEnd--;
-            top = false;
-            left = false;
-            j--;
-            continue;
-         }
-         else
-         {
-            i++;
-            continue;
-         }
-      }
-      if (!left && !top)
-      {
-         if (j == columStart)
-         {
-            columStart++;
-            top = false;
-            left = true;
-            i--;
-            continue;
-         }
-         else
-         {
-            j--;
-            continue;
-         }
-      }
-      if (left && !top)
-      {
-         if (i == lineStart)
-         {
-            columEnd--;
-            top = true;
-            left = true;
-            j++;
-            continue;
-         }
-         else
-         {
-            i--;
-            continue;
-         }
-      }
-   }
+   return number * Convert.ToInt32(Math.Pow(5, Math.Abs(number).ToString().Length));
 }
 
-void PrintArray(int[,] array)
-{
-   for (int i = 0; i < array.GetLength(0); i++)
-   {
-      for (int j = 0; j < array.GetLength(1); j++)
-      {
-         string stR = array[i,j] < 10? " "+array[i,j] :array[i,j].ToString();
-         Write($"{stR} ");
-      }
-      WriteLine();
-   }
-}
