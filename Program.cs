@@ -1,20 +1,21 @@
-﻿// Джеку очень нравится его число пять: фокус здесь в том, что вам нужно умножить каждое число на 5, возведенное в ранг 
-// количества цифр каждого числа, так, например:
-//   3 -->    15  (  3 * 5¹)
-//  10 -->   250  ( 10 * 5²)
-// 200 --> 25000  (200 * 5³)
-//   0 -->     0  (  0 * 5¹)
-//  -3 -->   -15  ( -3 * 5¹)
+﻿//Задайте значение N. Напишите программу, которая выведет все натуральные числа в промежутке от 1 до N.
+//N = 5; "1,2,3,4,5"
+
 using static System.Console;
 Clear();
 
-WriteLine("Введите число: ");
-int num = int.Parse(ReadLine());
-WriteLine($"{Multiply(num)}");
+Write("Введите число N: ");
+int N = int.Parse(ReadLine());
 
+RecursMethod(N);
 
-int Multiply(int number)
+void RecursMethod(int num)
 {
-   return number * Convert.ToInt32(Math.Pow(5, Math.Abs(number).ToString().Length));
+   if(num > 0)
+   {
+      //Write($"{num} ");                    //По убыванию
+      RecursMethod(num-1);
+      Write($"{num} ");                      //По возростанию
+   }
+   
 }
-
