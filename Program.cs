@@ -1,16 +1,18 @@
-﻿//Напишите программу которая рекурсивно посчитает сумму цифр числа.
-//453 -> 12
-//45 -> 9
+﻿//Напишите программу, которая на вход принимает два числа A и B, и возводит число А в целую степень В с помощью рекурсии.
+//А = 3; B = 5 -> 243
+//A = 2; B = 3 -> 8
 using System.Reflection.Metadata.Ecma335;
 using static System.Console;
 Clear();
 
-Write("Введите число: ");
-int number = int.Parse(ReadLine());
+Write("Введите два числа через пробел: ");
+string[] str = ReadLine().Split(' ',StringSplitOptions.RemoveEmptyEntries);
+int numA = int.Parse(str[0]);
+int numB = int.Parse(str[1]);
 
-WriteLine(RecursMethod(number));
+WriteLine(RecursMethod(numA,numB));
 
-int RecursMethod(int num)
+int RecursMethod(int numA, int numB)
 {
-   return num > 0 ?num % 10 + RecursMethod(num/10): 0;
+   return numB > 0 ?numA * RecursMethod(numA,numB-1): 1;
 }
