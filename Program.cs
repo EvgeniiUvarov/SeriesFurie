@@ -1,7 +1,6 @@
-﻿//Напишите программу, которая на вход принимает два числа A и B, и возводит число А в целую степень В с помощью рекурсии.
-//А = 3; B = 5 -> 243
-//A = 2; B = 3 -> 8
-using System.Reflection.Metadata.Ecma335;
+﻿// Задача 64: Задайте значения M и N. Напишите программу, которая выведет произведение натуральных чисел в промежутке от M до N.
+// M = 1; N = 5. ->120
+// M = 4; N = 6. -> 120
 using static System.Console;
 Clear();
 
@@ -14,5 +13,6 @@ WriteLine(RecursMethod(numA,numB));
 
 int RecursMethod(int numA, int numB)
 {
-   return numB > 0 ?numA * RecursMethod(numA,numB-1): 1;
+   return numA <= numB ?numA * RecursMethod(numA+1, numB): 1;
 }
+
