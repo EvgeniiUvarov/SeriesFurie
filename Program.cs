@@ -1,6 +1,6 @@
-﻿// Задача 64: Задайте значения M и N. Напишите программу, которая выведет произведение натуральных чисел в промежутке от M до N.
-// M = 1; N = 5. ->120
-// M = 4; N = 6. -> 120
+﻿// Задача 66: Задайте значения M и N. Напишите программу, которая найдёт сумму натуральных элементов в промежутке от M до N.
+// M = 1; N = 15 -> 120
+// M = 4; N = 8. -> 30
 using static System.Console;
 Clear();
 
@@ -13,6 +13,6 @@ WriteLine(RecursMethod(numA,numB));
 
 int RecursMethod(int numA, int numB)
 {
-   return numA <= numB ?numA * RecursMethod(numA+1, numB): 1;
+   return numA <= numB ?numA + RecursMethod(numA+1, numB): 0;
 }
 
