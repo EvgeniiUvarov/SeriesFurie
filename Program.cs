@@ -1,17 +1,25 @@
-﻿// Задача 68: Напишите программу вычисления функции Аккермана с помощью рекурсии. Даны два неотрицательных числа m и n.
-// m = 2, n = 3 -> A(m,n) = 29
+﻿// Задача 70:** Напишите программу, которая на вход принимает два числа и выдаёт первые N чисел, для которых каждое следующее равно
+// сумме двух предыдущих.
+// 3 и 4, N = 5 -> 3 4 7 11 18
+// 6 и 10, N = 4 -> 6 10 16 26
 using static System.Console;
 Clear();
 
-WriteLine("Введите числа m и n через пробел: ");
-string[] str = ReadLine().Split(' ',StringSplitOptions.RemoveEmptyEntries);
+WriteLine("Введите три числа через пробел: ");
+string[] str = ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 int numA = int.Parse(str[0]);
 int numB = int.Parse(str[1]);
+int N = int.Parse(str[2]);
 
-WriteLine(RecursMethod(numB,numA));
+RecursMethod(numA, numB, N);
 
-int RecursMethod(int numA, int numB)
+void RecursMethod(int numA, int numB, int N)
 {
-   return numA == 0? numB+1: numB == 0? RecursMethod(numA-1, 1) :RecursMethod(numA-1, RecursMethod(numA, numB-1));
+   if (N > 0)
+   {
+      Write($"{numA} ");
+      RecursMethod(numB, numA + numB, N-1);
+   }
 }
+
 
