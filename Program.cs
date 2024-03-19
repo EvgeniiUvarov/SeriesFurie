@@ -5,7 +5,7 @@
 using static System.Console;
 Clear();
 
-WriteLine("Введите три числа через пробел: ");
+Write("Введите три числа через пробел: ");
 string[] str = ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 int numA = int.Parse(str[0]);
 int numB = int.Parse(str[1]);
